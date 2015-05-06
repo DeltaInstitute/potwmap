@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>WI POTW Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900,400italic|Source+Code+Pro:400' rel='stylesheet' type='text/css'>
+    <script type='text/javascript' src='js/tabletop.js'></script>
+    <script type='text/javascript' src='js/sheetsee.js'></script>
+    <link rel='stylesheet' type='text/css' href='http://api.tiles.mapbox.com/mapbox.js/v1.0.0/mapbox.css'  />
+    <link rel='stylesheet' type='text/css' href='style/style.css'>
+</head>
+
+<style>
+  #map, #shapesmap {max-width: 800px; height: 500px;}
+  .leaflet-popup-content li {list-style:none;}
+  .leaflet-popup-content {width: 102px;}
+  .leaflet-popup-content img {width: 100px;}
+a {border: none;}
+</style>
+
+<body>
+  
+  <div class="container">
+      
+  <h1>Wisconsin Publicly Owned Treatment Works (POTW) Map</h1>
+  <p><em><a href="https://docs.google.com/a/delta-institute.org/spreadsheets/d/1R3016vFNMmeaI0volqhNX6l02CehTtGYOPjmDQagmjE/#gid=0" target="_blank">spreadsheet</a></em><p>
+
+  <div id="map"></div>
+  
+  <p><em><a onClick='window.location="view-source:" + window.location.href'>View Source</a> // <a href="../docs/sheetsee-maps.html">View Documentation</a></em></p>
+  
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      var URL = "1R3016vFNMmeaI0volqhNX6l02CehTtGYOPjmDQagmjE"
+      Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
+    })
+
+    function showInfo(data) {
+      var optionsJSON = ["name", "industry"]
+      var template = "<ul><li>'{{name}}'</li>" 
+                   + "<li><strong>Industry: </strong> '{{industry}}'</li></ul>"
+      var geoJSON = Sheetsee.createGeoJSON(data, optionsJSON)
+      var map = Sheetsee.loadMap("map")
+      Sheetsee.addTileLayer(map, 'examples.map-20v6611k')
+      Sheetsee.addMarkerLayer(geoJSON, map, template)
+      $.getJSON('data/mke_wshd.json', function(data){
+        var geojson = L.geoJson(data, {
+          onEachFeature: function (feature, layer){
+            layer.bindPopup(feature.properties.HUC)
+          }
+        });
+        geojson.addTo(map)
+      });
+    }
+
+  </script>
+</body>
+</html>
