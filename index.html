@@ -45,6 +45,7 @@ a {border: none;}
       var map = Sheetsee.loadMap("map")
       Sheetsee.addTileLayer(map, 'examples.map-20v6611k')
       Sheetsee.addMarkerLayer(geoJSON, map, template)
+      console.log('here is your data: ' + geoJSON)
       $.getJSON('data/mke_wshd.json', function(data){
         var geojson = L.geoJson(data, {
           onEachFeature: function (feature, layer){
