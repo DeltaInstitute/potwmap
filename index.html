@@ -39,13 +39,13 @@ a {border: none;}
 
     function showInfo(data) {
       var optionsJSON = ["name", "industry"]
-      var template = "<ul><li>'{{name}}'</li>" 
-                   + "<li><strong>Industry: </strong> '{{industry}}'</li></ul>"
+      var template = "<ul><li>'{{Facility_Name}}'</li>" 
+                   + "<li><strong>Permit Expires </strong> '{{Permit_Expiration_Date}}'</li>"
+                   + "<li><strong>Pollutant Load (kg/yr) </strong> '{{Pollutant_Load}}'</li></ul>"
       var geoJSON = Sheetsee.createGeoJSON(data, optionsJSON)
       var map = Sheetsee.loadMap("map")
       Sheetsee.addTileLayer(map, 'examples.map-20v6611k')
       Sheetsee.addMarkerLayer(geoJSON, map, template)
-      console.log('here is your data: ' + geoJSON)
       $.getJSON('data/mke_wshd.json', function(data){
         var geojson = L.geoJson(data, {
           onEachFeature: function (feature, layer){
