@@ -72,8 +72,8 @@ pointLayer.on('layeradd', function(e) {
 						'<p>Permit Expiration Date ' + feature.properties.description + '</p>' +
 						'<br>' +
 						/*'<img class="popup-image" src="' + feature.properties.imageUrl + '" />';*/
-						'<p>Pollutant load: ' + feature.properties.pollutantLoad + '</p>' + 
-						'<p> Max Allowable Load: ' + feature.properties.maxLoad + '</p>';
+						'<p><strong>Pollutant load</strong>:<br> ' + feature.properties.pollutantLoad + '</p>' + 
+						'<p><strong>Max Allowable Load</strong>:<br> ' + feature.properties.maxLoad + '</p>';
 
 
 	// bind popup to markers
