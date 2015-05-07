@@ -37,8 +37,8 @@ for ( var i = 0; i < sheetData.length; i++) {
 				"description": sheetData[i].Permit_Expiration_Date,
 				"imageUrl": sheetData[i].image,
 				"link": sheetData[i].link,
-				"pollutantLoad": sheetData[i].Pollutant_Load,
-				"maxLoad": sheetData[i].MaxAllowableLoadkgyr,
+				"pollutantLoad": sheetData[i].Pollutant_Load.toFixed(2),
+				"maxLoad": sheetData[i].MaxAllowableLoadkgyr.toFixed(2),
 				"marker-color": getColor(sheetData[i].Pollutant_Load)
 				/*,
 				"marker-color": sheetData[i].markercolor,
